@@ -1,0 +1,74 @@
+﻿@model Jack_FoodTrackerMVC.Models.Food
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Food</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Calories)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Calories)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sugars)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sugars)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Saturates)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Saturates)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salt)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

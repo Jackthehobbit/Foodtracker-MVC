@@ -77,23 +77,22 @@ namespace Jack.FoodTracker
             };
         }
 
-        public Food AddFood(FoodDTO dto)
+        public void AddFood(FoodView foodview,FoodCategory cat )
         {
-            Food newFood = parseFoodDTO(dto);
 
-            Validator.ValidateObject(newFood, new ValidationContext(newFood), true);
+            Validator.ValidateObject(foodview, new ValidationContext(foodview), true);
 
             //Check the food doesn't already exist in the database
-            if (UnitOfWork.FoodRepository.GetAll().Where(x => x.Name.ToLower().Equals(newFood.Name.ToLower())).Any())
+            if (UnitOfWork.FoodRepository.GetAll().Where(x => x.Name.ToLower().Equals(foodview.Name.ToLower())).Any())
             {
                 throw new ValidationException("This food already exists.");
             }
 
+            Food newFood = new Food(foodview.Name, cat, foodview.Description, foodview.Calories, foodview.Sugars, foodview.Fat, foodview.Saturates, foodview.Salt);
             //Add the food to the database
             UnitOfWork.FoodRepository.Add(newFood);
             UnitOfWork.Save();
-
-            return newFood;
+            
         }
 
         public void EditFood(FoodDTO dto, Food food)

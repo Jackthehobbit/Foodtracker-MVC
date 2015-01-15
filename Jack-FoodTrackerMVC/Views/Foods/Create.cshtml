@@ -1,4 +1,4 @@
-﻿@model  Jack_FoodTrackerMVC.Models.FoodView
+﻿@model  Jack.FoodTracker.Entities.FoodView
 
 @{
     ViewBag.Title = "Create";
@@ -32,10 +32,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Category, Model.categories);
-                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.CategoryName, Model.categories);
+                @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
             </div>
         </div>
 

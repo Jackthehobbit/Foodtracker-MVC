@@ -52,14 +52,13 @@ namespace Jack_FoodTrackerMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Description,Category,Calories,Sugars,Fat,Saturates,Salt")] FoodView foodview)
+        public ActionResult Create([Bind(Include = "Name,Description,CategoryName,Calories,Sugars,Fat,Saturates,Salt")] FoodView foodview)
         {
-            FoodCategory cat = null;//_ftracker.GetCategoryByName(Category)
+            FoodCategory cat = _ftracker.GetCategoryByName(foodview.CategoryName);
             if (ModelState.IsValid && cat != null)
             {
-               // FoodDTO fooddto = new FoodDTO
-               // Food food = new Food(foodview.Name, cat, foodview.Description, foodview.Calories, foodview.Sugars, foodview.Fat, foodview.Saturates, foodview.Salt);
-                //_ftracker.AddFood(food);
+                
+                _ftracker.AddFood(foodview,cat);
                 return RedirectToAction("Index");
             }
 

@@ -35,13 +35,13 @@ namespace Jack.FoodTracker.Entities
         public double Salt { get; set; }
 
         [Required]
-        public int Category { get; set; }
+        public string CategoryName { get; set; }
 
         public SelectList categories { get; set; }
 
         public FoodView(IList<FoodCategory> Cats)
         {
-            this.categories = new SelectList(Cats, "ID", "Name");
+            this.categories = new SelectList(Cats, "Name", "Name");
         }
         public FoodView()
         {

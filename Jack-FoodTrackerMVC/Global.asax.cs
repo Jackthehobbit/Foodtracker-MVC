@@ -16,6 +16,9 @@ namespace Jack_FoodTrackerMVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            CompositionRoot root = new CompositionRoot();
+            ControllerBuilder.Current.SetControllerFactory(root.ControllerFactory);
         }
     }
 }

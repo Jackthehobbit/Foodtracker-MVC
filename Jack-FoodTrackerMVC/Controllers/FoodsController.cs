@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Jack_FoodTrackerMVC.Models;
 using Jack.FoodTracker;
 using Jack.FoodTracker.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace Jack_FoodTrackerMVC.Controllers
 {
@@ -32,7 +33,8 @@ namespace Jack_FoodTrackerMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Food food = _ftracker.GetFoodByID(id);
+            int nonNullId = (int)id;
+            Food food = _ftracker.GetFoodByID(nonNullId);
             if (food == null)
             {
                 return HttpNotFound();
@@ -57,9 +59,16 @@ namespace Jack_FoodTrackerMVC.Controllers
             FoodCategory cat = _ftracker.GetCategoryByName(foodview.CategoryName);
             if (ModelState.IsValid && cat != null)
             {
+                try
+                {
+                    _ftracker.AddFood(foodview, cat);
+                    return RedirectToAction("Index");
+                }
+                catch(ValidationException vexp)
+                {
+                    return View(foodview);
+                }
                 
-                _ftracker.AddFood(foodview,cat);
-                return RedirectToAction("Index");
             }
 
             return View(foodview);
@@ -72,12 +81,15 @@ namespace Jack_FoodTrackerMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Food food = _ftracker.GetFoodByID(id);
+            int nonNullId = (int)id;
+            Food food = _ftracker.GetFoodByID(nonNullId);
+            IList<FoodCategory> cats = _ftracker.GetAllFoodCategories(false);
+            FoodView foodview = new FoodView(food.Id,food.Name,food.Description,food.Calories,food.Sugars,food.Fat,food.Saturates,food.Salt,food.Category.Name,cats,food.Category);
             if (food == null)
             {
                 return HttpNotFound();
             }
-            return View(food);
+            return View(foodview);
         }
 
         // POST: Foods/Edit/5
@@ -85,7 +97,7 @@ namespace Jack_FoodTrackerMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Calories,Sugars,Fat,Saturates,Salt")] Food food)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,CategoryName,Calories,Sugars,Fat,Saturates,Salt")] FoodView foodview)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +105,7 @@ namespace Jack_FoodTrackerMVC.Controllers
                 //_ftracker.EditFood();
                 return RedirectToAction("Index");
             }
-            return View(food);
+            return View(foodview);
         }
 
         // GET: Foods/Delete/5
@@ -103,7 +115,8 @@ namespace Jack_FoodTrackerMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Food food = _ftracker.GetFoodByID(id);
+            int nonNullId = (int)id;
+            Food food = _ftracker.GetFoodByID(nonNullId);
             if (food == null)
             {
                 return HttpNotFound();

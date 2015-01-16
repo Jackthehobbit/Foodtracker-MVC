@@ -254,9 +254,9 @@ namespace Jack.FoodTracker
             return UnitOfWork.FoodCategoryRepository.GetByName(Name);
         }
 
-        public Food GetFoodByID(int? id)
+        public Food GetFoodByID(int id)
         {
-            throw new NotImplementedException();
+            return UnitOfWork.FoodRepository.GetById(id);
         }
     }
 }

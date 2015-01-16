@@ -12,6 +12,10 @@ namespace Jack.FoodTracker.Entities
 {
     public class FoodView
     {
+        [Required]
+        [Editable(false)]
+        public int id { get; set; }
+
         [Index(IsUnique = true)]
         [MaxLength(255)]
         [Required]
@@ -42,6 +46,19 @@ namespace Jack.FoodTracker.Entities
         public FoodView(IList<FoodCategory> Cats)
         {
             this.categories = new SelectList(Cats, "Name", "Name");
+        }
+        public FoodView(int id,string name,string desc,int calories,double sugar,double fat,double saturates,double salt,string CategoryName,IList<FoodCategory> cats,FoodCategory selectedCat = null)
+        {
+            this.id = id;
+            this.Name = name;
+            this.Description = desc;
+            this.Calories = calories;
+            this.Sugars = sugar;
+            this.Fat = fat;
+            this.Saturates = saturates;
+            this.Salt = salt;
+            this.CategoryName = CategoryName;
+            this.categories = new SelectList(cats, "Name", "Name", selectedCat);
         }
         public FoodView()
         {

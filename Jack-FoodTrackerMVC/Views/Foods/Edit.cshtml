@@ -1,4 +1,4 @@
-﻿@model Jack_FoodTrackerMVC.Models.Food
+﻿@model Jack.FoodTracker.Entities.FoodView
 
 @{
     ViewBag.Title = "Edit";
@@ -14,9 +14,6 @@
     <div class="form-horizontal">
         <h4>Food</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -32,7 +29,13 @@
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CategoryName, Model.categories);
+                @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Calories, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

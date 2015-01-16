@@ -17,5 +17,7 @@ namespace Jack.FoodTracker.EntityDatabase
         IList<Food> GetByCategory(FoodCategory fCat);
 
         IList<Food> SearchByName(String searchText);
+
+        Food GetById(int id);
     }
 }

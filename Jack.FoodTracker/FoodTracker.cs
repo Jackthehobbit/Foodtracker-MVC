@@ -95,22 +95,37 @@ namespace Jack.FoodTracker
             
         }
 
-        public void EditFood(FoodDTO dto, Food food)
+        public void EditFood(FoodView foodview = null)
         {
-            Food editedFood = parseFoodDTO(dto);
 
-            Validator.ValidateObject(editedFood, new ValidationContext(editedFood), true);
+           Food uneditedFood = UnitOfWork.FoodRepository.GetById(foodview.id);
 
-            //if the name has changed check that there isn't an existing food with the new name
-            if(dto.Name.ToLower() != food.Name.ToLower() && UnitOfWork.FoodRepository.GetAll().Where(x => x.Name.ToLower().Equals(dto.Name.ToLower())).Any())
-            {
-                throw new ValidationException("A food with this name already exists.");
-            }
+           ////if the name has changed check that there isn't an existing food with the new name
+           if(foodview.Name.ToLower() != uneditedFood.Name.ToLower() && UnitOfWork.FoodRepository.GetAll().Where(x => x.Name.ToLower().Equals(foodview.Name.ToLower())).Any())
+           {
+               throw new ValidationException("A food with this name already exists.");
+           }
 
-            food.Update(editedFood);
+           Food editedFood =  new Food()
+           {
+                Name = foodview.Name,
+                Category = UnitOfWork.FoodCategoryRepository.GetByName(foodview.CategoryName),
+                Description = foodview.Description,
+                Calories = foodview.Calories,
+                Sugars = foodview.Sugars,
+                Fat = foodview.Fat,
+                Saturates = foodview.Saturates,
+                Salt = foodview.Salt
+            }; 
+
+           Validator.ValidateObject(editedFood, new ValidationContext(editedFood), true);
+
+            
+
+            uneditedFood.Update(editedFood);
 
             //Add the food to the database
-            UnitOfWork.FoodRepository.Edit(food);
+            UnitOfWork.FoodRepository.Edit(uneditedFood);
             UnitOfWork.Save();
         }
 
@@ -234,10 +249,10 @@ namespace Jack.FoodTracker
             UnitOfWork.Save();
         }
 
-        public IList<Food> SearchFoodByName(String searchText)
-        {
-            return UnitOfWork.FoodRepository.SearchByName(searchText);
-        }
+        //public IList<Food> SearchFoodByName(String searchText)
+      //  {
+            //return UnitOfWork.FoodRepository.SearchByName(searchText);
+      //  }
 
         public IList<Food> GetAllFood()
         {

@@ -58,7 +58,7 @@ namespace Jack.FoodTracker.Entities
             this.Saturates = saturates;
             this.Salt = salt;
             this.CategoryName = CategoryName;
-            this.categories = new SelectList(cats, "Name", "Name", selectedCat);
+            this.categories = new SelectList(cats, "Name", "Name");
         }
         public FoodView()
         {

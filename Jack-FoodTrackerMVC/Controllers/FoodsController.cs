@@ -66,6 +66,9 @@ namespace Jack_FoodTrackerMVC.Controllers
                 }
                 catch(ValidationException vexp)
                 {
+                    
+                    foodview.categories = new SelectList(_ftracker.GetAllFoodCategories(false),"Name","Name");
+                    ModelState.AddModelError("Name", vexp.Message);
                     return View(foodview);
                 }
                 
@@ -97,12 +100,20 @@ namespace Jack_FoodTrackerMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,CategoryName,Calories,Sugars,Fat,Saturates,Salt")] FoodView foodview)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,CategoryName,Calories,Sugars,Fat,Saturates,Salt,categories")] FoodView foodview)
         {
             if (ModelState.IsValid)
             {
-                // create fooddto
-                //_ftracker.EditFood();
+
+                try
+                {
+                    _ftracker.EditFood(foodview);
+                }
+                catch(ValidationException vexp)
+                {
+                    return View(foodview);
+                }
+                
                 return RedirectToAction("Index");
             }
             return View(foodview);

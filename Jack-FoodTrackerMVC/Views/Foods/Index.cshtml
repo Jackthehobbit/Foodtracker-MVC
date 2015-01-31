@@ -1,10 +1,43 @@
 ﻿@model IEnumerable<Jack.FoodTracker.Entities.Food>
 
-@{
-    ViewBag.Title = "Index";
-}
+    @{
+        ViewBag.Title = "Index";
+    }
+    @Scripts.Render("~/bundles/jquery")
 
-<h2>Index</h2>
+    <script src="../Scripts/foodList.js" type="text/javascript"></script>
+
+<h2>Enter Retrieval Criteria</h2>
+<table>
+    <tr>asdasdasdasdadasdsa<th></th><th>Testdsadasdasdasdasd</th></tr>
+    <tr><td><label>Name</label></td>
+        <td><input type="text" id="Name" /></td></tr>
+
+    <tr><td><label>Desc</label></td>
+        <td><input type="text" id="Desc" /></td></tr>
+
+    <tr>
+    <td><label>Calories</label></td>
+    <td><input type="text" id="Calories" /></td>
+    </tr>
+
+    <tr>
+    <td><label>Sugar</label></td>
+    <td><input type="text" id="Sugar" /></td>
+    </tr>
+
+    <tr><td><label>Fat</label></td>
+<td><input type="text" id="Fat" /></tr>
+
+    <tr><td><label>Saturates</label></td>
+        <td><input type="text" id="Saturates" /></td></tr>
+
+    <tr>
+        <td><label>Salt</label></td>
+        <td><input type="text" id="Salt" /></td></tr>
+
+ </table>
+<input type="button" value="Search"/>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -35,35 +68,38 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Calories)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sugars)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Saturates)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Salt)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+    @foreach (var item in Model) {
+        <tr id ="@(item.Id)">
+            <td>
+                <input type="text" id="@(item.Id+"_Name")" value="@item.Name" />
+                </td>
+            <td>
+                <input type="text" id="@(item.Id+"_Desc")" value="@item.Description" />
+            </td>
+            <td>
+                <input type="text" id="@(item.Id+"_Desc")" value="@item.Description" />
+            </td>
+            <td>
+                <input type="text" id="@(item.Id+"_Calories")" value="@item.Calories" size="4" class="number" />
+            </td>
+            <td>
+                <input type="text" id="@(item.Id+"_Sugar")" value="@item.Sugars" size="4" class="number" />
+            </td>
+            <td>
+                <input type="text" id="@(item.Id+"_Fat")" value="@item.Fat" size="4" class="number" />
+            </td>
+            <td>
+                <input type="text" id="@(item.Id+"_Saturates")" value="@item.Saturates" size="4" class="number" />
+            </td>
+            <td>
+                <input type="text" id="@(item.Id+"_Salt")" value="@item.Salt" size="4" class="number" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
 }
 
 </table>

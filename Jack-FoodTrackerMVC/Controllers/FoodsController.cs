@@ -23,7 +23,14 @@ namespace Jack_FoodTrackerMVC.Controllers
         // GET: Foods
         public ActionResult Index()
         {
-            return View(_ftracker.GetAllFood());
+            return View();
+        }
+
+        
+        public ActionResult Search(FoodDTO searchCriteria)
+        {
+            IList<Food> Model = _ftracker.GetFoodByExpression(searchCriteria);
+            return PartialView("FoodTable", Model);
         }
 
         // GET: Foods/Details/5

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace Jack.FoodTracker.EntityDatabase
 {
@@ -49,6 +50,11 @@ namespace Jack.FoodTracker.EntityDatabase
         public Food GetById(int id)
         {
             return context.Foods.Where(x => x.Id == id).FirstOrDefault();
+        }
+
+        public IList<Food> GetByExpression(Expression<Func<Food, Boolean>> lambda)
+        {
+            return context.Foods.AsQueryable().Where(lambda).ToList();
         }
       
     }

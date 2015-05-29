@@ -1,6 +1,7 @@
 ﻿using Jack.FoodTracker.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Jack.FoodTracker.EntityDatabase
 {
@@ -19,5 +20,7 @@ namespace Jack.FoodTracker.EntityDatabase
         IList<Food> SearchByName(String searchText);
 
         Food GetById(int id);
+
+        IList<Food> GetByExpression(Expression<Func<Food, Boolean>> lambda);
     }
 }

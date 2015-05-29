@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
 
 namespace Jack.FoodTracker
 {
@@ -272,6 +273,13 @@ namespace Jack.FoodTracker
         public Food GetFoodByID(int id)
         {
             return UnitOfWork.FoodRepository.GetById(id);
+        }
+
+        public IList<Food> GetFoodByExpression(FoodDTO searchCriteria)
+        {
+            SearchService searchService = new SearchService();
+            Expression<Func<Food, Boolean>> exp = searchService.BuildExpression(searchCriteria);
+            return UnitOfWork.FoodRepository.GetByExpression(exp);
         }
     }
 }

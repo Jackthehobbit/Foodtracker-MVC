@@ -39,7 +39,8 @@ namespace Jack_FoodTrackerMVC
               "~/Content/themes/base/tabs.css",
               "~/Content/themes/base/datepicker.css",
               "~/Content/themes/base/progressbar.css",
-              "~/Content/themes/base/theme.css"));
+              "~/Content/themes/base/theme.css"
+              ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
             "~/Scripts/jquery-ui-{version}.js"));

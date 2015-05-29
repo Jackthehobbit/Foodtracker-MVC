@@ -38,10 +38,13 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
+    <div id="dialog" >
+        <p>Testing this works</p>
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryui")
+    <script src="../Scripts/foodtracker.js" type="text/javascript"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

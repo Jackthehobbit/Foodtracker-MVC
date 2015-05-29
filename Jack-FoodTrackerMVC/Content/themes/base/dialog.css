@@ -15,7 +15,7 @@
 	left: 0;
 	padding: .2em;
 	outline: 0;
-    background: blue;
+    
 }
 .ui-dialog .ui-dialog-titlebar {
 	padding: .4em 1em;
@@ -42,8 +42,9 @@
 	position: relative;
 	border: 0;
 	padding: .5em 1em;
-	background: none;
+	background: inherit;
 	overflow: auto;
+    color:#888888;
 }
 .ui-dialog .ui-dialog-buttonpane {
 	text-align: left;
@@ -51,6 +52,8 @@
 	background-image: none;
 	margin-top: .5em;
 	padding: .3em 1em .5em .4em;
+    background-color: #202020;
+    
 }
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
 	float: right;
@@ -69,3 +72,7 @@
 .ui-draggable .ui-dialog-titlebar {
 	cursor: move;
 }
+.no-close .ui-dialog-titlebar-close{
+    display: none;
+} 
+

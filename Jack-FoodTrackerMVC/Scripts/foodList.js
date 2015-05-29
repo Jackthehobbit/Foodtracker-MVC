@@ -1,10 +1,11 @@
+// Javascript used on the Foods page
 var g_urls;
 
 function foodlist_Init(options) {
     g_urls = options;
 }
 
-function foodtracker_processLinkClick(p_linkData) {
+function foodlist_processLinkClick(p_linkData) {
     switch (p_linkData.toLowerCase) {
         case "edit":
             alert("EDIT CLICK TO BE DONE");
@@ -21,7 +22,7 @@ function foodtracker_processLinkClick(p_linkData) {
     }
     event.preventDefault();
 }
-function foodtracker_setEvents() {
+function foodlist_setEvents() {
     //when a link is clicked
     $("a").on("click", function () {
         foodtracker_processLinkClick($(this).data("linkaction"));
@@ -50,19 +51,26 @@ function foodtracker_setEvents() {
         var data = {name: $("#searchName").val(), description: $("#searchDesc").val(), calories: $("#searchCalories").val(), sugar: $("#searchSugar").val(), fat: $("#searchFat").val(), saturates: $("#searchSaturates").val(), salt: $("#searchSalt").val()};
         if (data.name == "" && data.description == "" && data.calories == "" && data.sugar == "" && data.fat == "" && data.saturates == "" && data.salt == "")
         {
-            $("#dialog").dialog({
-                modal: true,
-                resizable: false,
-                buttons: {
-                    "Yeah!": function () {
+            
+            var buttons = [{
+                
+                text: "Yes",
+                class: 'btn btn-primary btn-xs',
+                    click: function () {
                         $(this).dialog("close");
-                    },
-                    "Sure, Why Not": function () {
-                        $(this).dialog("close");
+                        $("#FoodTable").load(g_urls.getAllUrl);
+                        return;
                     }
+            },
+                {
+                    text: "No",
+                    class: 'btn btn-default btn-xs',
+                click: function () {
+                    $(this).dialog("close");
+                    return;
                 }
-            });
-                //'"No Criteria Specified. This will retrieve all foods and may take a long time. Are you sure you wish to continue?<input type="button" value="Yes"/><input type="button" value="No"/>"';
+            }]
+            foodtracker_createDialog("Perform Blank Retrieve?",'No Criteria Specified. This will retrieve all foods and may take a long time.</br> Are you sure you wish to continue?',buttons,{modal:true,resizable:false,dialogClass:"no-close",closeOnEscape:false});
             
         }
         else

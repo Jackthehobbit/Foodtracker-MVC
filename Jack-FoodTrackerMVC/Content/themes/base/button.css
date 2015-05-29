@@ -24,7 +24,7 @@
 .ui-button:visited,
 .ui-button:hover,
 .ui-button:active {
-	text-decoration: none;
+	/*text-decoration: none;*/
 }
 /* to make room for the icon, a width needs to be set here */
 .ui-button-icon-only {

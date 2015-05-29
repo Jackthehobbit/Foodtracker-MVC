@@ -33,6 +33,12 @@ namespace Jack_FoodTrackerMVC.Controllers
             return PartialView("FoodTable", Model);
         }
 
+        public ActionResult GetAll()
+        {
+            IList<Food> Model = _ftracker.GetAllFood();
+            return PartialView("FoodTable", Model);
+        }
+
         // GET: Foods/Details/5
         public ActionResult Details(int? id)
         {
